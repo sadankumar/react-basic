@@ -1,46 +1,81 @@
  import React from "react";
  import ReactDOM from "react-dom/client";
  
-//React Element is React.createElement converts element to "Object" not html element => Then render converts to the HTML element
-//React Element
-const Title1  = (
-    <h1 className="head1" tabIndex="6"> 
-        React sub title Component
-    </h1>
-);
+const Header = ()=>{
+    return (
+        <div className="header">
+            <div className="logo-container">
+                <img className="logo" src="https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png"></img>
+            </div>
+            <div className="nav-items">
+                <ul>
+                    <li>Home</li>
+                    <li>About Us</li>
+                    <li>Contact Us</li>
+                    <li>Cart</li>
+                </ul>
+            </div>
+        </div>
+    );
+};
 
-//Title Component
-const Title  = () => (
-    <h1 className="head" tabIndex="6"> 
-        React Title Component
-    </h1>
-);
+//writing style in card
+const styleCard = {
+    backgroundColor: "orange", 
+};
 
+//Adding style in the component style={styleCard}
+//or we can directly put in component using style={{backgroundColor: "orange"}}
+//props : destructing is the javascript functionality not React
+const RestaurantCard = (props)=>{
+    console.log(props);
+    const {resName, cuisine} = props;
+    return (
+        <div className="res-card" style={styleCard}>
+            <img 
+                className="res-logo"
+                alt="res-logo" 
+                src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/x4uyxvihmg8qa3pddkgf">
 
+            </img>
+            <h3>{resName}</h3>
+            <h4>{cuisine}</h4>
+            <h4>4.4 Stars, 30 min ETA</h4>
+            <img></img>
+        </div>
+    );
+};
 
-//jsx code will get transpilled to createElement before render to the browser. -> we are using Parcel that uses babel
-const jsxHeading = <h1 id="heading"> React app using JSX</h1>; //internally calls the React.createElement
-//JSX is not html. attrubites must be in camelCase
-//JSX in multiple line needs to wrapo in round bracket.()
+//body container will contain the card component
+const Body = ()=>{
+    return (
+        <div className="body">
+            <div className="search">Search</div>
+            <div className="res-container">
+                <RestaurantCard  resName ="Meghana Food" cuisine="Biryani, North India."/>
+                <RestaurantCard resName ="KFC" cuisine="Burger, ."/>
+                <RestaurantCard />
+                <RestaurantCard />
+            </div>
+        </div>
+    );
+};
 
-//React Functional Component: It is just a function and use the jsx. 
-//Curly brushes: We can write javascript inside the curley brushes. 
-//It automatically sanitise the value.
-//We can call as a function for the component {Title()}. it is very flexible
-const value = "This is value from javascript";// This can be come from the API
-const HeadingComponent = ()=> (
-    <div id="container">
-        {value}, {Title1}, {Title()}
-        <Title/>
-         <h1 className="heading"> React Functional Component</h1>
-    </div>
-);
-const HeadingComponent1 = ()=>  <h1> React Functional Component</h1>; //same line no need to have return keyword 
+//Main app layout
+
+const AppLayout = ()=>{
+   return (
+        <div className="app">
+            <Header />
+            <Body />
+        </div>
+    );
+};
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 //root.render(jsxHeading);
 
-root.render(<HeadingComponent />)
+root.render(<AppLayout />)
 
 //React Component
